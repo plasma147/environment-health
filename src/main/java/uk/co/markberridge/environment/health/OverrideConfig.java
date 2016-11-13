@@ -1,11 +1,12 @@
 package uk.co.markberridge.environment.health;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.File;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 public class OverrideConfig {
 
@@ -18,9 +19,9 @@ public class OverrideConfig {
     }
 
     public OverrideConfig(String dirLocation, String fileName) {
-        Preconditions.checkNotNull(dirLocation, "dirLocation is null");
-        Preconditions.checkNotNull(fileName, "fileName is null");
-        Preconditions.checkArgument(fileName.endsWith(".yml"), "fileName must end with .yml");
+        checkNotNull(dirLocation, "dirLocation is null");
+        checkNotNull(fileName, "fileName is null");
+        checkArgument(fileName.endsWith(".yml"), "fileName must end with .yml");
 
         String dir = dirLocation.isEmpty() || dirLocation.endsWith("/") ? dirLocation : dirLocation + "/";
 

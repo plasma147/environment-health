@@ -9,8 +9,6 @@ import java.util.concurrent.ExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.co.markberridge.environment.health.service.ProxyService.ResponseDto;
-
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.google.common.cache.CacheBuilder;

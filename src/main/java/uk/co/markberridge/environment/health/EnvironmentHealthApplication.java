@@ -1,5 +1,7 @@
 package uk.co.markberridge.environment.health;
 
+import javax.ws.rs.client.Client;
+
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.client.JerseyClientBuilder;
@@ -15,7 +17,6 @@ import uk.co.markberridge.environment.health.service.ProxyService;
 
 import com.codahale.metrics.health.HealthCheckRegistry;
 import com.codahale.metrics.servlets.HealthCheckServlet;
-import com.sun.jersey.api.client.Client;
 
 /**
  * Main dropwizard service

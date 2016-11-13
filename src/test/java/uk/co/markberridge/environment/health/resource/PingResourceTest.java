@@ -1,15 +1,13 @@
 package uk.co.markberridge.environment.health.resource;
 
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import io.dropwizard.testing.junit.ResourceTestRule;
 
 import javax.ws.rs.core.MediaType;
-
-import io.dropwizard.testing.junit.ResourceTestRule;
+import javax.ws.rs.core.Response;
 
 import org.junit.ClassRule;
 import org.junit.Test;
-
-import com.sun.jersey.api.client.ClientResponse;
 
 public class PingResourceTest {
 
@@ -19,12 +17,13 @@ public class PingResourceTest {
     @Test
     public void test() {
 
-        ClientResponse clientResponse = resources.client()
-                                                 .resource("/ping")
-                                                 .type(MediaType.TEXT_PLAIN)
-                                                 .get(ClientResponse.class);
+    	Response response = resources.client()
+                                                 .target("/ping")
+                                                 .request()
+                                                 .accept(MediaType.TEXT_PLAIN)
+                                                 .get(Response.class);
 
-        assertThat(clientResponse.getStatus()).isEqualTo(200);
-        assertThat(clientResponse.getEntity(String.class)).isEqualTo("pong");
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.readEntity(String.class)).isEqualTo("pong");
     }
 }

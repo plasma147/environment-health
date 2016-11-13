@@ -31,7 +31,9 @@ public class ProxyResource {
 	public Response proxy(@QueryParam("url") String url) throws Exception {
 		ResponseDto response = proxyService.getProxyResponse(url);
 
-		return Response.status(response.getStatus()).header(ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*").entity(response.getText()).build();
+		return Response.status(response.getStatus())
+				.header(ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+				.entity(response.getText()).build();
 	}
 
 	@DELETE
@@ -39,6 +41,7 @@ public class ProxyResource {
 	@Produces(APPLICATION_JSON)
 	public Response invalidate() throws Exception {
 		proxyService.invalidate();
-		return Response.status(Status.NO_CONTENT).header(ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*").build();
+		return Response.status(Status.NO_CONTENT)
+				.header(ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*").build();
 	}
 }

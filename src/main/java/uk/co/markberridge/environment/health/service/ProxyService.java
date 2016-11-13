@@ -6,6 +6,9 @@ import io.dropwizard.util.Duration;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.core.Response;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,8 +18,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.util.concurrent.UncheckedExecutionException;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
 
 public class ProxyService {
     static final String METER_NAME = ProxyLoader.class.getName() + ".loads";
@@ -60,8 +61,8 @@ public class ProxyService {
         @Override
         public ResponseDto load(String url) throws Exception {
             meter.mark();
-            ClientResponse response = client.resource(url).get(ClientResponse.class);
-            return ResponseDto.of(response.getStatus(), response.getEntity(String.class));
+            Response response = client.target(url).request().get(Response.class);
+            return ResponseDto.of(response.getStatus(), response.readEntity(String.class));
         }
     }
 

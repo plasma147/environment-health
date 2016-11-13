@@ -27,7 +27,7 @@ public class OverrideConfig {
 
         // Look for username override file
         String u = System.getProperty("user.name");
-        File overrideFile = new File(dir + u + '-' + fileName);
+        File overrideFile = new File(dir, u + '-' + fileName);
         log.warn("looking for override file :" + overrideFile.getAbsolutePath());
 
         if (overrideFile.exists()) {

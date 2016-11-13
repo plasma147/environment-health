@@ -13,6 +13,9 @@ environmentsApp.factory('restService', ['$http', function($http) {
   service.get = function(url) {
     return $http.get(url);
   };
+  service.delete = function(url) {
+    return $http.delete(url);
+  };
   return service;
 }]);
 
@@ -35,6 +38,22 @@ environmentsApp.factory('healthService', ['restService', '$interval', '$q', func
 
     return deferred.promise;
   };
+
+  service.clearCache = function() {
+    
+    var deferred = $q.defer();
+    var execute = function() {
+      restService.delete('/proxy/').then(function(response) {
+        deferred.notify(response);
+      }, function(response) {
+        deferred.notify(response);
+      });
+    };
+    execute();
+
+    return deferred.promise;
+  };
+
   return service;
 }]);
 

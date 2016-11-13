@@ -26,11 +26,14 @@ environmentsApp.run(['pollingService', function (pollingService){
   pollingService.startPolling();
 }]);
 
-environmentsApp.controller('NavCtrl', ['$scope', '$modal', '$location', 'configService', function($scope, $modal, $location, configService) {
+environmentsApp.controller('NavCtrl', ['$scope', '$modal', '$location', 'configService', 'healthService', function($scope, $modal, $location, configService, healthService) {
     $scope.expandedView = $location.path().indexOf('exploded') >= 0;
     $scope.toggleView = function() {
       $scope.expandedView = $location.path().indexOf('exploded') < 0;
       $location.path($scope.expandedView ? '/exploded' : '/compact');
+    };
+    $scope.reload = function() {
+      healthService.clearCache();
     };
     configService.get().then(function(result) {
       $scope.links = result.data.links;

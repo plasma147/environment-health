@@ -57,7 +57,7 @@ public class EnvironmentHealthApplication extends Application<HealthConfiguratio
         if (config.isTestMode()) {
             for (int id = 1; id < 8; id++) {
                 HealthCheckRegistry registry = new HealthCheckRegistry();
-                if(id ==4) {
+                if(id == 4) {
                 	registry.register("Random Check" + id, new RandomHealthCheck(80));
                 	registry.register("Unhealthy Check 1", new AlwaysUnhealthyHealthCheck(true));
                 	registry.register("Healthy Check 1", new AlwaysHealthyHealthCheck());

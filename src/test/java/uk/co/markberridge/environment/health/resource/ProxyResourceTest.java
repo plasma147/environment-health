@@ -4,12 +4,18 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import javax.ws.rs.core.Response.Status;
+
 import io.dropwizard.testing.junit.ResourceTestRule;
 
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import uk.co.markberridge.environment.health.service.ProxyService;
 import uk.co.markberridge.environment.health.service.ProxyService.ResponseDto;
@@ -41,6 +47,19 @@ public class ProxyResourceTest {
 
         assertThat(clientResponse.getStatus()).isEqualTo(200);
         assertThat(clientResponse.getEntity(String.class)).isEqualTo("message");
+
     }
 
+    @Test
+    public void testInvalidate() {
+        when(proxyService.getProxyResponse("http://www.example.com")).thenReturn(ResponseDto.of(200, "message"));
+
+        ClientResponse clientResponse = resources.client().resource("/proxy")//
+                                                 .type(TEXT_PLAIN)
+                                                 .delete(ClientResponse.class);
+
+        assertThat(clientResponse.getStatus()).isEqualTo(204);
+        verify(proxyService).invalidate();
+    }
+    
 }

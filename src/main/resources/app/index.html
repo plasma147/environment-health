@@ -18,7 +18,8 @@
                     <a target="_blank" href="{{link.url}}">{{link.name}}</a></li>
                </ul>
                <ul class="nav navbar-nav navbar-right">
-                  <li><a href data-ng-click="toggleView()">({{expandedView ? '-' : '+' }})</a></li>
+                 <li><a href data-ng-click="toggleView()"><span class="glyphicon glyphicon-{{expandedView ? 'minus' : 'plus'}}"></span></a></li>
+                 <li><a href data-ng-click="reload()"><span class="glyphicon glyphicon-refresh"></span></a></li>
                </ul>
             </div>
             <!--/.nav-collapse -->

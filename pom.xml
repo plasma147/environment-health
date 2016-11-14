@@ -100,7 +100,11 @@
           <archive>
             <manifest>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addClasspath>true</addClasspath>
             </manifest>
+            <manifestEntries>
+              <Class-Path>./resources/</Class-Path>
+            </manifestEntries>
           </archive>
         </configuration>
       </plugin>

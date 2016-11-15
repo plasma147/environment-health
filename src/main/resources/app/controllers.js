@@ -71,14 +71,13 @@ function($rootScope, $scope, $modal, healthService, pollingService) {
 environmentsApp.controller('AppModalCtrl', ['$scope', '$modalInstance', 'env', 'app', function ($scope, $modalInstance, env, app) {
   $scope.env = env;
   $scope.app = app;
+  $scope.customViews = app.views;
   $scope.time = new Date();
-  //$scope.$on('app-update', function(event, args){
-  //  var updateIsForThisApplication = args.env.name == env.name && args.app.name == app.name;
-  //  if(updateIsForThisApplication){
-  //    $scope.app = args.app;
-  //    $scope.env = args.env;
-  //    $scope.time = args.updated;
-  //  }
-  //});
 }]);
 
+environmentsApp.controller('RestResourceCtrl', ['$scope', 'restService', function ($scope, restService) {
+  restService.get('/proxy/?url=' + $scope.$parent.view.url).
+        success(function(data, status) {
+          $scope.result = data;
+        });
+}]);

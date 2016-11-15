@@ -60,9 +60,10 @@ environmentsApp.factory('healthService', ['restService', '$interval', '$q', func
 environmentsApp.factory('pollingService', ['$rootScope', 'configService', 'healthService', function($rootScope, configService, healthService){
 	var process = function(data) {
 
-        function App(name, url, healthy, healthchecks, fellIll) {
+        function App(name, url, views, healthy, healthchecks, fellIll) {
           this.name = name;
           this.url = url;
+          this.views = views;
           this.healthy = healthy;
           this.healthchecks = healthchecks;
           this.fellIll = fellIll;
@@ -121,8 +122,7 @@ environmentsApp.factory('pollingService', ['$rootScope', 'configService', 'healt
                         if (!healthy) {
                           fellIll = (data.environments[i].applications[j] && data.environments[i].applications[j].fellIll) || Date.now();
                         }
-                        data.environments[i].applications[j] = new App(app.name, app.url, healthy, response.data, fellIll);
-                        console.log(env.name + ':' + app.name + ':' + fellIll + ". illFor:", data.environments[i].applications[j].getTimeIll());
+                        data.environments[i].applications[j] = new App(app.name, app.url, app.views || [], healthy, response.data, fellIll);
                         data.environments[i].status = getEnvStatus(data.environments[i]);
                         data.environments[i].fellIll = getEnvFellIll(data.environments[i]);
                         $rootScope.$broadcast('app-update', {updated: Date.now(), 

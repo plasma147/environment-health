@@ -1,0 +1,14 @@
+<div ng-controller="RestResourceCtrl">  
+  <table class="table table-striped"> 
+    <thead> 
+      <tr>
+        <th>Name</th><th>Version</th> 
+      </tr> 
+    </thead> 
+    <tbody> 
+      <tr ng-repeat="(name, version) in result.versions"> 
+        <td>{{name}}</td><td>{{version}}</td></tr> 
+      </tr> 
+    </tbody> 
+  </table>
+</div>

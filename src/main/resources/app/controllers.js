@@ -26,7 +26,7 @@ environmentsApp.run(['pollingService', function (pollingService){
   pollingService.startPolling();
 }]);
 
-environmentsApp.controller('NavCtrl', ['$scope', '$modal', '$location', 'configService', 'healthService', function($scope, $modal, $location, configService, healthService) {
+environmentsApp.controller('NavCtrl', ['$window', '$scope', '$location', 'configService', 'healthService', function($window, $scope, $location, configService, healthService) {
     $scope.expandedView = $location.path().indexOf('exploded') >= 0;
     $scope.toggleView = function() {
       $scope.expandedView = $location.path().indexOf('exploded') < 0;
@@ -34,19 +34,19 @@ environmentsApp.controller('NavCtrl', ['$scope', '$modal', '$location', 'configS
     };
     $scope.reload = function() {
       healthService.clearCache();
+      $window.location.reload();
     };
     configService.get().then(function(result) {
       $scope.links = result.data.links;
     });
 }]);
 
-environmentsApp.controller('EnvironmentsCtrl', ['$rootScope', '$scope', '$modal', 'healthService', 'pollingService', 
-function($rootScope, $scope, $modal, healthService, pollingService) {
+environmentsApp.controller('EnvironmentsCtrl', ['$rootScope', '$scope', '$uibModal', 'healthService', 'pollingService', function($rootScope, $scope, $uibModal, healthService, pollingService) {
   $scope.data = pollingService.getData();
   $scope.updated = pollingService.updated;
   
   $scope.open = function(env, app) {
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl : 'views/appModal.html',
       scope : $scope,
       controller : 'AppModalCtrl',
@@ -68,7 +68,7 @@ function($rootScope, $scope, $modal, healthService, pollingService) {
   });
 }]);
 
-environmentsApp.controller('AppModalCtrl', ['$scope', '$modalInstance', 'env', 'app', function ($scope, $modalInstance, env, app) {
+environmentsApp.controller('AppModalCtrl', ['$scope', 'env', 'app', function ($scope, env, app) {
   $scope.env = env;
   $scope.app = app;
   $scope.customViews = app.views;

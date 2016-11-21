@@ -9,7 +9,7 @@
 
   <ul class="nav nav-tabs" role="tablist">
     <li data-ng-repeat="view in customViews" role="presentation" ng-class="{active:$first}">
-      <a href="#{{view.name}}" aria-controls="{{view.name}}" role="tab" data-toggle="tab">{{view.name}}</a>
+      <a href="#{{view.name}}" ng-click="$event.preventDefault();" aria-controls="{{view.name}}" role="tab" data-toggle="tab">{{view.name}}</a>
     </li>
   </ul>
   <div class="tab-content">
